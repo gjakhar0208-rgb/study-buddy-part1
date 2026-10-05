@@ -157,5 +157,5 @@
     const bioCount = document.getElementById('bio-count');
     bio.addEventListener('input', () => { bioCount.textContent = bio.value.length; });
   </script>
-</body>
+<script>   const profileForm = document.querySelector('form');   profileForm.addEventListener('submit', (event) => {     if (!profileForm.checkValidity()) return;     event.preventDefault();     let notice = document.getElementById('demo-notice');     if (!notice) {       notice = document.createElement('p');       notice.id = 'demo-notice';       notice.setAttribute('role', 'status');       notice.style.cssText = 'margin: 16px 0 0; color: #6248C2; text-align: center;';       profileForm.append(notice);     }     notice.textContent = 'This is a front-end demo. Profile setup is not connected and no information was sent or saved.';   }); </script> </body>
 </html>
