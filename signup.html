@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Create your StudyBuddy account.">
+  <title>Sign Up | StudyBuddy</title>
+  <style>
+    :root { color-scheme: light; --ink: #1E1B2E; --muted: #666477; --lavender: #EAE6FF; --purple: #8B70EE; --mint: #E8F7EE; --green: #4CAF78; --line: #E9E6F1; }
+    * { box-sizing: border-box; }
+    body { min-height: 100vh; margin: 0; display: grid; place-items: center; padding: 30px 18px; color: #1E1B2E; background: linear-gradient(135deg, #E6F7EF 0%, #EDE7FF 100%) !important; font-family: 'Poppins', 'Inter', sans-serif; }
+    a { color: inherit; }
+    .wrap { width: min(100%, 560px); }
+    .brand { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 20px; font-weight: 800; font-size: 1.08rem; text-decoration: none; }
+    .app-logo-frame { width: 48px; height: 48px; flex: 0 0 48px; overflow: hidden; border-radius: 50%; }
+    .app-logo { display: block; width: 100%; height: 100%; object-fit: contain; transform: scale(1.3); transform-origin: 50% 20%; }
+    .card { padding: clamp(25px, 5vw, 40px); border: 1px solid rgba(255,255,255,.8); border-radius: 20px; background: #FFFFFF; box-shadow: 0 10px 30px rgba(139, 112, 238, 0.08); backdrop-filter: blur(12px); }
+    h1 { margin: 0 0 8px; font-size: 1.85rem; line-height: 1.2; letter-spacing: 0; }
+    .intro { margin: 0 0 26px; color: var(--muted); }
+    .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+    .field { margin-bottom: 17px; }
+    .field.full { grid-column: 1 / -1; }
+    .field-error { margin: 6px 0 0; color: #B42318; font-size: .82rem; }
+    label { display: block; margin-bottom: 7px; font-size: .9rem; font-weight: 700; }
+    input, select { width: 100%; min-height: 47px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; color: var(--ink); background: white; font: inherit; }
+    input:focus, select:focus { outline: 3px solid rgba(139,112,238,.2); border-color: var(--purple); }
+    .submit { width: 100%; min-height: 50px; margin-top: 4px; border: 0; border-radius: 999px; color: white; background: var(--ink); font: inherit; font-weight: 700; cursor: pointer; }
+    .submit:hover { background: #39334F; }
+    .footer { margin: 21px 0 0; color: var(--muted); text-align: center; font-size: .92rem; }
+    .footer a { color: #6248C2; font-weight: 700; text-underline-offset: 3px; }
+    @media (max-width: 520px) { .fields { grid-template-columns: 1fr; } .field.full { grid-column: auto; } }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <a class="brand" href="index.html"><span class="app-logo-frame"><img src="logo.png" alt="StudyBuddy Logo" class="app-logo"></span><span>StudyBuddy</span></a>
+    <section class="card" aria-labelledby="page-title">
+      <h1 id="page-title">Create your account</h1>
+      <p class="intro">A few details first, then you can build your study profile.</p>
+      <form action="edit-profile.html" method="post">
+        <div class="fields">
+          <div class="field full"><label for="full-name">Full Name</label><input id="full-name" name="fullName" type="text" autocomplete="name" required></div>
+          <div class="field full"><label for="email">College Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+          <div class="field"><label for="password">Password</label><input id="password" name="password" type="password" autocomplete="new-password" required></div>
+          <div class="field"><label for="confirm-password">Confirm Password</label><input id="confirm-password" name="confirmPassword" type="password" autocomplete="new-password" aria-describedby="password-error" required><p class="field-error" id="password-error" role="alert" hidden>Passwords do not match. Enter the correct password.</p></div>
+          <div class="field"><label for="branch">Branch</label><select id="branch" name="branch" required><option value="" disabled selected>Select branch</option><option>CSE</option><option>ECE</option><option>EEE</option><option>ME</option><option>CE</option></select></div>
+          <div class="field"><label for="year">Year</label><select id="year" name="year" required><option value="" disabled selected>Select year</option><option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option></select></div>
+        </div>
+        <button class="submit" type="submit">Next: Setup Profile</button>
+      </form>
+      <p class="footer">Already have an account? <a href="login.html">Log in</a></p>
+    </section>
+  </main>
+  <script>
+    const signupForm = document.querySelector('form');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirm-password');
+    const passwordError = document.getElementById('password-error');
+    const passwordMismatchMessage = 'Passwords do not match. Enter the correct password.';
+
+    function validatePasswords() {
+      const passwordsMatch = passwordInput.value === confirmPasswordInput.value;
+      const hasMismatch = confirmPasswordInput.value.length > 0 && !passwordsMatch;
+      confirmPasswordInput.setCustomValidity(hasMismatch ? passwordMismatchMessage : '');
+      passwordError.hidden = !hasMismatch;
+      return !hasMismatch;
+    }
+
+    passwordInput.addEventListener('input', validatePasswords);
+    confirmPasswordInput.addEventListener('input', validatePasswords);
+    signupForm.addEventListener('submit', (event) => {
+      if (!validatePasswords()) {
+        event.preventDefault();
+        confirmPasswordInput.reportValidity();
+      }
+    });
+  </script>
+</body>
+</html>
