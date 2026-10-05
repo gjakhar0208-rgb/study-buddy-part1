@@ -75,5 +75,5 @@
       }
     });
   </script>
-</body>
+<script>   const signupForm = document.querySelector('form');   signupForm.addEventListener('submit', (event) => {     if (!signupForm.checkValidity()) return;     event.preventDefault();     let notice = document.getElementById('demo-notice');     if (!notice) {       notice = document.createElement('p');       notice.id = 'demo-notice';       notice.setAttribute('role', 'status');       notice.style.cssText = 'margin: 16px 0 0; color: #6248C2; text-align: center;';       signupForm.append(notice);     }     notice.textContent = 'This is a front-end demo. Sign-up is not connected and no information was sent or saved.';   }); </script> </body>
 </html>
